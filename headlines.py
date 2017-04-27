@@ -1,4 +1,8 @@
 import feedparser
+import json
+
+from urllib.request import urlopen
+from urllib.parse import quote
 
 from flask import Flask, render_template, request
 
@@ -11,18 +15,56 @@ RSS_FEEDS = {
     'iol': 'http://www.iol.co.za/cmlink/1.640'
 }
 
+DEFAULTS = {
+    'publication': 'bbc',
+    'city': 'Rivne,UA'
+}
+
+WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=597ee4cceccb91ff4d37f707e5d13a02"
+
 
 @app.route("/")
-def get_news():
-    query = request.args.get("publication")
+def home():
+    publication = request.args.get('publication')
 
+    if not publication:
+        publication = DEFAULTS['publication']
+    articles = get_news(publication)
+
+    city = request.args.get('city')
+    if not city:
+        city = DEFAULTS['city']
+    weather = get_weather(city)
+
+    return render_template("home.html", articles=articles, weather=weather)
+
+
+def get_news(query):
     if not query or query.lower() not in RSS_FEEDS:
-        publication = "bbc"
+        publication = DEFAULTS["publication"]
     else:
         publication = query.lower()
+        feed = feedparser.parse(RSS_FEEDS[publication])
 
-    feed = feedparser.parse(RSS_FEEDS[publication])
-    return render_template("home.html", articles=feed['entries'])
+    return feed['entries']
+
+
+def get_weather(query):
+    query = quote(query)
+    url = WEATHER_URL.format(query)
+    data = urlopen(url).read()
+    parsed = json.loads(data)
+    weather = None
+
+    if parsed.get('weather'):
+        weather = {
+            'description': parsed['weather'][0]['description'],
+            'temperature': parsed['main']['temp'],
+            'city': parsed['name'],
+            'country': parsed['sys']['country']
+        }
+
+    return weather
 
 
 if __name__ == '__main__':
