@@ -1,0 +1,8 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "indentation": 2,
+    "color-hex-length": "long"
+  }
+}
