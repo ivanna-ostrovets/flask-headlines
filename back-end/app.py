@@ -40,8 +40,9 @@ def get_news(channel):
     return make_response(jsonify(feed['entries']))
 
 
-@app.route("/api/weather/<city>")
-def weather(city):
+@app.route("/api/weather")
+def weather():
+    city = request.args.get('city')
     query = quote(city)
     url = WEATHER_URL.format(query)
     data = urlopen(url).read()
