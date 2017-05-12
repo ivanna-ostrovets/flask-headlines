@@ -2,18 +2,21 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
-import { appRoutes } from './app.routes';
+// const appRoutes: Routes =  [
+//   { path: '', component: AppComponent },
+//   { path: '**', component: AppComponent }
+// ];
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    // RouterModule.forRoot(appRoutes)
   ],
   declarations: [
     AppComponent,

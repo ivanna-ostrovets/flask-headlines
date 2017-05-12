@@ -5,7 +5,7 @@ import json
 from urllib.request import urlopen
 from urllib.parse import quote
 
-from flask import Flask, render_template, request, make_response
+from flask import Flask, jsonify, render_template, request, make_response
 
 app = Flask(__name__)
 
@@ -27,7 +27,18 @@ WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&
 CURRENCY_URL = "https://openexchangerates.org//api/latest.json?app_id=8808760634504eebb77b6e98d924cc43"
 
 
-@app.route("/")
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    if request.method == 'OPTIONS':
+        response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
+        headers = request.headers.get('Access-Control-Request-Headers')
+        if headers:
+            response.headers['Access-Control-Allow-Headers'] = headers
+    return response
+
+
+@app.route("/api/home")
 def home():
     publication = get_value_with_fallback("publication")
     articles = get_news(publication)
@@ -39,11 +50,12 @@ def home():
     currency_to = get_value_with_fallback("currency_to")
     rate, currencies = get_rate(currency_from, currency_to)
 
-    response = make_response(render_template("home.html",
-                                             articles=articles,
-                                             weather=weather, currency_from=currency_from,
-                                             currency_to=currency_to, rate=rate,
-                                             currencies=sorted(currencies)))
+    response = make_response(jsonify(articles=articles,
+                                     weather=weather,
+                                     currency_from=currency_from,
+                                     currency_to=currency_to,
+                                     rate=rate,
+                                     currencies=sorted(currencies)))
 
     expires = datetime.datetime.now() + datetime.timedelta(days=365)
     response.set_cookie("publication", publication, expires=expires)
