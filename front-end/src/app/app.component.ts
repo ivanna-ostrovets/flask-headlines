@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-const APP_SERVER = 'http://localhost:5000/';
+import { APP_SERVER } from './app.module';
 
 @Component({
   selector: 'hl-app',
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData();
+    // this.getData();
   }
 
   getData() {
