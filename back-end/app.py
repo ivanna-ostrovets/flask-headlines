@@ -1,11 +1,10 @@
-import datetime
 import feedparser
 import json
 
 from urllib.request import urlopen
 from urllib.parse import quote
 
-from flask import Flask, jsonify, render_template, request, make_response
+from flask import Flask, jsonify, request, make_response
 
 app = Flask(__name__)
 
@@ -15,14 +14,6 @@ RSS_FEEDS = {
     'fox': 'http://feeds.foxnews.com/foxnews/latest',
     'iol': 'http://www.iol.co.za/cmlink/1.640'
 }
-
-DEFAULTS = {
-    'publication': 'bbc',
-    'city': 'Rivne,UA',
-    'currency_from': 'USD',
-    'currency_to': 'UAH'
-}
-
 WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=597ee4cceccb91ff4d37f707e5d13a02"
 CURRENCY_URL = "https://openexchangerates.org//api/latest.json?app_id=8808760634504eebb77b6e98d924cc43"
 
@@ -38,54 +29,20 @@ def after_request(response):
     return response
 
 
-@app.route("/api/home")
-def home():
-    publication = get_value_with_fallback("publication")
-    articles = get_news(publication)
-
-    city = get_value_with_fallback("city")
-    weather = get_weather(city)
-
-    currency_from = get_value_with_fallback("currency_from")
-    currency_to = get_value_with_fallback("currency_to")
-    rate, currencies = get_rate(currency_from, currency_to)
-
-    response = make_response(jsonify(articles=articles,
-                                     weather=weather,
-                                     currency_from=currency_from,
-                                     currency_to=currency_to,
-                                     rate=rate,
-                                     currencies=sorted(currencies)))
-
-    expires = datetime.datetime.now() + datetime.timedelta(days=365)
-    response.set_cookie("publication", publication, expires=expires)
-    response.set_cookie("city", city, expires=expires)
-    response.set_cookie("currency_from", currency_from, expires=expires)
-    response.set_cookie("currency_to", currency_to, expires=expires)
-
-    return response
+@app.route("/api/news")
+def news():
+    return make_response(jsonify([key for key, value in RSS_FEEDS.items()]))
 
 
-def get_value_with_fallback(key):
-    if request.args.get(key):
-        return request.args.get(key)
-
-    if request.cookies.get(key):
-        return request.cookies.get(key)
-
-    return DEFAULTS[key]
+@app.route("/api/news/<channel>")
+def get_news(channel):
+    feed = feedparser.parse(RSS_FEEDS[channel])
+    return make_response(jsonify(feed['entries']))
 
 
-def get_news(query):
-    publication = query.lower()
-
-    feed = feedparser.parse(RSS_FEEDS[publication])
-
-    return feed['entries']
-
-
-def get_weather(query):
-    query = quote(query)
+@app.route("/api/weather/<city>")
+def weather(city):
+    query = quote(city)
     url = WEATHER_URL.format(query)
     data = urlopen(url).read()
     parsed = json.loads(data)
@@ -99,16 +56,30 @@ def get_weather(query):
             'country': parsed['sys']['country']
         }
 
-    return weather
+    return make_response(jsonify(weather))
 
 
-def get_rate(frm, to):
-    all_currency = urlopen(CURRENCY_URL).read()
-    parsed = json.loads(all_currency).get('rates')
-    frm_rate = parsed.get(frm.upper())
-    to_rate = parsed.get(to.upper())
+@app.route("/api/currencies")
+def currencies():
+    return make_response(jsonify(get_currencies()))
 
-    return to_rate / frm_rate, parsed.keys()
+
+@app.route("/api/rate")
+def rate():
+    currencies = get_currencies()
+    from_curreny = request.args.get('from')
+    to_currency = request.args.get('to')
+
+    from_rate = currencies.get(from_curreny.upper())
+    to_rate = currencies.get(to_currency.upper())
+
+    return make_response(jsonify(to_rate / from_rate))
+
+
+def get_currencies():
+    currencies = urlopen(CURRENCY_URL).read()
+    return json.loads(currencies).get('rates')
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
