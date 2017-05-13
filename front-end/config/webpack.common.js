@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const helpers = require('./helpers');
 
 module.exports = {
@@ -64,6 +65,14 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: 'src/index.html'
-    })
+    }),
+
+    new ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery",
+          "window.jQuery": "jquery",
+          Hammer: "hammerjs/hammer",
+          Materialize: "materialize-css"
+      })
   ]
 };
