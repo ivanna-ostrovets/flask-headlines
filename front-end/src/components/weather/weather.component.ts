@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Weather } from '../../models/weather';
+
 import { APP_SERVER } from '../../app/app.module';
 
 @Component({
@@ -10,7 +12,7 @@ import { APP_SERVER } from '../../app/app.module';
 })
 export class WeatherComponent {
   city: string;
-  weather: {} = {};
+  weather: Weather;
 
   constructor(
     private http: Http

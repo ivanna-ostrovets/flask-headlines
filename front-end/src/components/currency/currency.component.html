@@ -3,20 +3,20 @@
 <form>
   From:
   <select name="fromCurreny" [(ngModel)]="fromCurreny">
-    <option *ngFor="let currency of currencies"
+    <option *ngFor="let currency of currencies | hlKeys"
             [value]="currency">
       {{ currency }}
     </option>
   </select>
 
   To: <select name="toCurrency" [(ngModel)]="toCurrency">
-    <option *ngFor="let currency of currencies"
+    <option *ngFor="let currency of currencies | hlKeys"
             [value]="currency">
       {{ currency }}
     </option>
   </select>
 
-  <button type="submit" (click)="getCurrency()">Submit</button>
+  <button type="submit" (click)="getRate()">Submit</button>
 </form>
 
-<p>1 {{ currency_from }} = {{ currency_to }} {{ rate }}</p>
+<p *ngIf="rate">1 {{ fromCurreny }} = {{ toCurrency }} {{ rate }}</p>

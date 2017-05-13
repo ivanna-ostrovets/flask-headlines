@@ -8,5 +8,7 @@
   <button type="submit" (click)="getData()">Submit</button>
 </form>
 
-<p>City: <b>{{ weather.city }}, {{ weather.country }}</b></p>
-<p>{{ weather.description }} | {{ weather.temperature }}&#8451;</p>
+<div *ngIf="weather">
+  <p>City: <b>{{ weather.city }}, {{ weather.country }}</b></p>
+  <p>{{ weather.description }} | {{ weather.temperature }}&#8451;</p>
+</div>
