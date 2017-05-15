@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+:host /deep/ .tabs {
+  background-color: inherit;
+  margin-bottom: 15px;
+
+  .tab {
+    cursor: pointer;
+
+    a {
+      color: #000000;
+    }
+
+    a.active,
+    a:hover {
+      color: $accent-color;
+    }
+  }
+
+  .indicator {
+    background-color: $accent-color !important;
+  }
+}

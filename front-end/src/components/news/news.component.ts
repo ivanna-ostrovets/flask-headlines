@@ -6,9 +6,12 @@ import { News } from '../../models/news';
 
 import { APP_SERVER } from '../../app/app.module';
 
+const $ = require('jquery');
+
 @Component({
   selector: 'hl-news',
-  templateUrl: './news.component.html'
+  templateUrl: './news.component.html',
+  styleUrls: ['./news.component.scss']
 })
 export class NewsComponent implements OnInit {
   channels: string[];

@@ -1,12 +1,20 @@
-<h2>Headlines</h2>
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li *ngFor="let channel of channels" class="tab col s3">
+        <a [href]="'#' + channel">{{ channel }}</a>
+      </li>
+    </ul>
+  </div>
 
-<div *ngFor="let articles of news; let index=index">
-  <h3>{{ channels[index] | uppercase }}</h3>
-
-  <div *ngFor="let article of articles">
-    <b><a href="{{ article.link }}">{{ article.title }}</a></b><br/>
-    <i>{{ article.published }}</i><br/>
-    <p>{{ article.summary }}</p>
-    <hr/>
+  <div *ngFor="let articles of news; let index=index"
+       [id]="channels[index]"
+       class="col s12">
+    <div *ngFor="let article of articles">
+      <b><a href="{{ article.link }}">{{ article.title }}</a></b><br/>
+      <i>{{ article.published }}</i><br/>
+      <p>{{ article.summary }}</p>
+      <hr/>
+    </div>
   </div>
 </div>

@@ -3,6 +3,7 @@
   "plugins": ["stylelint-scss"],
   "rules": {
     "indentation": 2,
-    "color-hex-length": "long"
+    "color-hex-length": "long",
+    "selector-type-no-unknown": false
   }
 }
