@@ -7,7 +7,6 @@ import { MaterializeModule } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
 import { CurrencyComponent } from '../components/currency/currency.component';
-import { FooterComponent } from '../components/footer/footer.component';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { NewsComponent } from '../components/news/news.component';
 import { WeatherComponent } from '../components/weather/weather.component';
@@ -26,7 +25,6 @@ export const APP_SERVER = 'http://localhost:5000/';
   declarations: [
     AppComponent,
     CurrencyComponent,
-    FooterComponent,
     NavbarComponent,
     NewsComponent,
     WeatherComponent,
