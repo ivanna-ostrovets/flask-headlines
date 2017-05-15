@@ -6,8 +6,6 @@ import { News } from '../../models/news';
 
 import { APP_SERVER } from '../../app/app.module';
 
-const $ = require('jquery');
-
 @Component({
   selector: 'hl-news',
   templateUrl: './news.component.html',
