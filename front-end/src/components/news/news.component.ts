@@ -6,6 +6,8 @@ import { News } from '../../models/news';
 
 import { APP_SERVER } from '../../app/app.module';
 
+const $ = require('jquery');
+
 @Component({
   selector: 'hl-news',
   templateUrl: './news.component.html',
@@ -43,6 +45,6 @@ export class NewsComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    document.getElementById('tab0').click();
+    $('ul.tabs').tabs();
   }
 }
