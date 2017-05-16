@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -11,7 +11,7 @@ import { APP_SERVER } from '../../app/app.module';
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
-export class NewsComponent implements OnInit {
+export class NewsComponent implements OnInit, AfterViewChecked {
   channels: string[];
   news: News[] = [];
 
@@ -40,5 +40,9 @@ export class NewsComponent implements OnInit {
           }
         }
       );
+  }
+
+  ngAfterViewChecked() {
+    document.getElementById('tab0').click();
   }
 }
