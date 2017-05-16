@@ -1,14 +1,21 @@
-<h2>Current weather</h2>
+<h5 class="col s12">Current weather</h5>
 
-<form>
-  <input type="text"
-         name="city"
-         placeholder="City"
-         [(ngModel)]="city">
-  <button type="submit" (click)="getData()">Submit</button>
+<form class="weather-form col s12">
+  <div class="row">
+    <div class="input-field col s12">
+      <input id="city"
+             type="text"
+             name="city"
+             [(ngModel)]="city"
+             (ngModelChange)="getData()">
+      <label for="city">City</label>
+    </div>
+  </div>
 </form>
 
-<div *ngIf="weather">
-  <p>City: <b>{{ weather.city }}, {{ weather.country }}</b></p>
-  <p>{{ weather.description }} | {{ weather.temperature }}&#8451;</p>
+<div *ngIf="weather" class="col s12">
+  <div><strong>{{ weather.city }}, {{ weather.country }}</strong></div>
+  <div>{{ weather.description | hlCapitalize }} | {{ weather.temperature }} &#8451;</div>
 </div>
+
+<div class="col s12">{{ errorMessage }}</div>

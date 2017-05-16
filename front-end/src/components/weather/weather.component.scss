@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+:host /deep/ .weather-form {
+  margin-top: -6px;
+  margin-bottom: -32px;
+
+  .input-field input[type=text]:focus + label {
+    color: $primary-color;
+  }
+
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid $primary-color;
+    box-shadow: 0 1px 0 0 $primary-color;
+  }
+}
+
+.place-name {
+  font-weight: bold;
+}
+
+strong {
+  font-weight: bold;
+}
