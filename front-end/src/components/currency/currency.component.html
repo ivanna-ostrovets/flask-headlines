@@ -1,22 +1,36 @@
-<h2>Currency</h2>
+<div class="row">
+  <h5 class="col s12 valign-wrapper">
+    <i class="material-icons">attach_money</i>
+    Currency weather
+  </h5>
 
-<form>
-  From:
-  <select name="fromCurreny" [(ngModel)]="fromCurreny">
-    <option *ngFor="let currency of currencies | hlKeys"
-            [value]="currency">
-      {{ currency }}
-    </option>
-  </select>
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <select name="fromCurreny" [(ngModel)]="fromCurreny" materialize="material_select" [materializeSelectOptions]="currencies">
+          <option *ngFor="let currency of currencies | hlKeys"
+                  [value]="currency">
+            {{ currency }}
+          </option>
+        </select>
+        <label>From</label>
+      </div>
+    </div>
 
-  To: <select name="toCurrency" [(ngModel)]="toCurrency">
-    <option *ngFor="let currency of currencies | hlKeys"
-            [value]="currency">
-      {{ currency }}
-    </option>
-  </select>
+    <div class="row">
+      <div class="input-field col s12">
+        <select name="toCurrency" [(ngModel)]="toCurrency">
+          <option *ngFor="let currency of currencies | hlKeys"
+                  [value]="currency">
+            {{ currency }}
+          </option>
+        </select>
+        <label>To</label>
+      </div>
+    </div>
 
-  <button type="submit" (click)="getRate()">Submit</button>
-</form>
+    <button type="submit" (click)="getRate()">Submit</button>
+  </form>
 
-<p *ngIf="rate">1 {{ fromCurreny }} = {{ toCurrency }} {{ rate }}</p>
+  <p *ngIf="rate">1 {{ fromCurreny }} = {{ toCurrency }} {{ rate }}</p>
+</div>
