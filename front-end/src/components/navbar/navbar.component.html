@@ -4,10 +4,11 @@
       <a href="#" class="brand-logo">Headlines</a>
 
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#bbc">BBC</a></li>
-        <li><a href="#cnn">CNN</a></li>
-        <li><a href="#fox">FOX</a></li>
-        <li><a href="#iol">IOL</a></li>
+        <li *ngFor="let channel of channels; let index = index">
+          <a class="text-uppercase" (click)="selectTab('tab' + index)" >
+            {{ channel }}
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
