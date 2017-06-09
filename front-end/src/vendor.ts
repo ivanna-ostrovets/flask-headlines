@@ -5,7 +5,6 @@ import '@angular/common';
 import '@angular/http';
 import '@angular/router';
 
-import 'material-design-icons/iconfont/material-icons.css';
 import 'materialize-css';
 import 'angular2-materialize';
 import 'jquery';
