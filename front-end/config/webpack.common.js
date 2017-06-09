@@ -46,7 +46,11 @@ module.exports = {
         test: /\.scss$/,
         include: [helpers.root('src', 'app'), helpers.root('src', 'components')],
         loaders: ['raw-loader', 'sass-loader']
-      }
+      },
+      {
+        test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
+        loader: 'url-loader?limit=100000'
+      },
     ]
   },
 
@@ -68,11 +72,8 @@ module.exports = {
     }),
 
     new ProvidePlugin({
-          $: "jquery",
-          jQuery: "jquery",
-          "window.jQuery": "jquery",
-          Hammer: "hammerjs/hammer",
-          Materialize: "materialize-css"
-      })
+        "window.jQuery": "jquery",
+        Hammer: "hammerjs/hammer"
+    })
   ]
 };
