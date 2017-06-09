@@ -1,17 +1,15 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { APP_SERVER } from '../../app/app.module';
-
-const $ = require('jquery');
 
 @Component({
   selector: 'hl-currency',
   templateUrl: './currency.component.html',
   styleUrls: ['./currency.component.scss']
 })
-export class CurrencyComponent implements OnInit, AfterViewChecked {
+export class CurrencyComponent implements OnInit {
   currencies: string[];
   fromCurreny: string;
   rate: number;
@@ -27,19 +25,8 @@ export class CurrencyComponent implements OnInit, AfterViewChecked {
       .subscribe(
         (data) => {
           this.currencies = data;
-          console.log(this.currencies);
         }
       );
-
-    $(document).ready(function () {
-      $('select').material_select();
-    });
-  }
-
-  ngAfterViewChecked() {
-    $(document).ready(function () {
-      $('select').material_select();
-    });
   }
 
   getRate() {
