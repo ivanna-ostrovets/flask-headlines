@@ -14,7 +14,7 @@ import { WeatherComponent } from '../components/weather/weather.component';
 import { CapitalizePipe } from '../pipes/capitalize.pipe';
 import { KeysPipe } from '../pipes/keys.pipe';
 
-export const APP_SERVER = 'http://localhost:5000/';
+export const APP_SERVER = 'http://localhost:3000/';
 
 @NgModule({
   imports: [
