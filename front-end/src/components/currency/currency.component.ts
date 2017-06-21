@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { NgForm } from '@angular/forms';
 import 'rxjs/add/operator/map';
 
 import { APP_SERVER } from '../../app/app.module';
@@ -10,6 +11,8 @@ import { APP_SERVER } from '../../app/app.module';
   styleUrls: ['./currency.component.scss']
 })
 export class CurrencyComponent implements OnInit {
+  @ViewChild('currenciesForm') currenciesForm: NgForm;
+
   currencies: string[];
   fromCurreny: string;
   rate: number;
@@ -27,6 +30,11 @@ export class CurrencyComponent implements OnInit {
           this.currencies = data;
         }
       );
+
+    this.currenciesForm.statusChanges
+      .filter(data => data === 'VALID')
+      .subscribe(() => this.getRate()
+    );
   }
 
   getRate() {

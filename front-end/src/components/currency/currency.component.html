@@ -9,7 +9,6 @@
       <div class="input-field col s12">
         <select name="fromCurreny"
                 [(ngModel)]="fromCurreny"
-                (ngModelChange)="getRate()"
                 materialize="material_select"
                 [materializeSelectOptions]="currencies">
 
@@ -29,7 +28,6 @@
       <div class="input-field col s12">
         <select name="toCurrency"
                 [(ngModel)]="toCurrency"
-                (ngModelChange)="getRate()"
                 materialize="material_select"
                 [materializeSelectOptions]="currencies">
           <option value="" disabled selected>Choose currency</option>
@@ -46,6 +44,6 @@
   </form>
 
   <div *ngIf="rate" class="col s12">
-    <div>1 {{ fromCurreny }} = {{ toCurrency }} {{ rate | currency:toCurrency }}</div>
+    <div>1 {{ fromCurreny }} = {{ toCurrency }} {{ rate | number:'1.2' }}</div>
   </div>
 </div>
