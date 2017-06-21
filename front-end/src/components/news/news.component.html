@@ -1,6 +1,7 @@
-<div class="row">
+<div class="row"
+     *ngIf="!error; else noNews">
   <div class="col s12">
-    <ul class="tabs tabs-fixed-width">
+    <ul class="tabs tabs-fixed-width" materialize="tabs">
       <li *ngFor="let channel of channels" class="tab">
         <a [href]="'#' + channel">{{ channel }}</a>
       </li>
@@ -18,3 +19,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #noNews>
+  {{ error }}
+</ng-template>

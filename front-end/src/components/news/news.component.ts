@@ -16,6 +16,7 @@ const $ = require('jquery');
 export class NewsComponent implements OnInit, AfterViewChecked {
   channels: string[];
   news: News[] = [];
+  error: string;
 
   constructor(
     private http: Http
@@ -40,7 +41,10 @@ export class NewsComponent implements OnInit, AfterViewChecked {
                 }
               );
           }
-        }
+        },
+        (error) => {
+            this.error = 'Server is temporarily unavailable.';
+          }
       );
   }
 
