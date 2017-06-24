@@ -7,8 +7,8 @@
   <form class="col s12" #currenciesForm="ngForm">
     <div class="row">
       <div class="input-field col s12">
-        <select name="fromCurreny"
-                [(ngModel)]="fromCurreny"
+        <select name="fromCurrency"
+                [(ngModel)]="fromCurrency"
                 materialize="material_select"
                 [materializeSelectOptions]="currencies">
 
@@ -44,6 +44,6 @@
   </form>
 
   <div *ngIf="rate" class="col s12">
-    <div>1 {{ fromCurreny }} = {{ toCurrency }} {{ rate | number:'1.2' }}</div>
+    <div>1 {{ fromCurrency }} = {{ toCurrency }} {{ rate | number:'1.2' }}</div>
   </div>
 </div>

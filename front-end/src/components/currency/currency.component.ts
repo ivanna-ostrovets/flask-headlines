@@ -14,7 +14,7 @@ export class CurrencyComponent implements OnInit {
   @ViewChild('currenciesForm') currenciesForm: NgForm;
 
   currencies: string[];
-  fromCurreny: string;
+  fromCurrency: string;
   rate: number;
   toCurrency: string;
 
@@ -33,13 +33,13 @@ export class CurrencyComponent implements OnInit {
 
     this.currenciesForm.statusChanges
       .filter(data => data === 'VALID')
-      .subscribe(() => this.getRate()
-    );
+      .filter(() => Boolean(this.fromCurrency && this.toCurrency))
+      .subscribe(() => this.getRate());
   }
 
   getRate() {
     this.http
-      .get(APP_SERVER + `api/rate?from=${this.fromCurreny}&to=${this.toCurrency}`)
+      .get(APP_SERVER + `api/rate?from=${this.fromCurrency}&to=${this.toCurrency}`)
       .map((response: Response) => response.json())
       .subscribe(
         (data) => {
