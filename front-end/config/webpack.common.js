@@ -27,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        loader: 'file-loader?name=assets/[name].[hash].[ext]'
+        loader: 'file-loader?name=assets/[name].[ext]'
       },
       {
         test: /\.json$/,
@@ -46,11 +46,7 @@ module.exports = {
         test: /\.scss$/,
         include: [helpers.root('src', 'app'), helpers.root('src', 'components')],
         loaders: ['raw-loader', 'sass-loader']
-      },
-      {
-        test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
-        loader: 'url-loader?limit=100000'
-      },
+      }
     ]
   },
 
