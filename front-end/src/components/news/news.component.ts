@@ -1,19 +1,18 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
+
 import 'rxjs/add/operator/map';
 
 import { News } from '../../models/news';
 
 import { APP_SERVER } from '../../app/app.module';
 
-const $ = require('jquery');
-
 @Component({
   selector: 'hl-news',
   templateUrl: './news.component.html',
   styleUrls: ['./news.component.scss']
 })
-export class NewsComponent implements OnInit, AfterViewChecked {
+export class NewsComponent implements OnInit {
   channels: string[];
   news: News[] = [];
   error: string;
@@ -48,7 +47,7 @@ export class NewsComponent implements OnInit, AfterViewChecked {
       );
   }
 
-  ngAfterViewChecked() {
-    $('ul.tabs').tabs();
+  clickOnFirstTab() {
+    document.getElementById('tab0').click();
   }
 }

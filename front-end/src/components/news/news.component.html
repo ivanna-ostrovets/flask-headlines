@@ -1,9 +1,15 @@
 <div class="row"
      *ngIf="!error; else noNews">
   <div class="col s12">
-    <ul class="tabs tabs-fixed-width">
-      <li *ngFor="let channel of channels; let index = index" class="tab">
-        <a [href]="'#' + channel" [id]="'tab' + index">{{ channel }}</a>
+    <ul class="tabs tabs-fixed-width"
+        materialize="tabs">
+      <li *ngFor="let channel of channels; let index = index; let last = last"
+          class="tab">
+        <a [href]="'#' + channel"
+           [id]="'tab' + index">
+          {{ channel }}
+        </a>
+        {{last === true ? clickOnFirstTab() : null}}
       </li>
     </ul>
   </div>
